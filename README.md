@@ -1,11 +1,6 @@
 # 🏥 Insurance Prediction Model  
 
 A **Machine Learning project** built with **Linear Regression** to predict **insurance charges** based on user attributes such as age, BMI, smoking status, region, and other factors.  
-
-This project achieves:  
-- **R² Score**: 79% 📈  
-- **Adjusted R² Score**: 80% 🔍  
----
 ## 🚀 Live Demo
 
 You can try out the **Insurance Premium Prediction** app live and even edit the code or explore it interactively.
