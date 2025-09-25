@@ -5,6 +5,28 @@ A **Machine Learning project** built with **Linear Regression** to predict **ins
 This project achieves:  
 - **R² Score**: 79% 📈  
 - **Adjusted R² Score**: 80% 🔍  
+---
+## 🚀 Live Demo
+
+You can try out the **Insurance Premium Prediction** app live and even edit the code or explore it interactively.
+
+- **Live Demo:**  
+  [![Open Live Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge&logo=streamlit)](https://insurance-prediction-model-y4xggsjhsnqsj2jlddmxjb.streamlit.app/)
+
+### How to run locally?
+
+1. Clone the repo:  git clone https://github.com/harshit7271/insurance-prediction-model
+2. Create and activate a virtual environment and install dependencies.
+3. Start the FastAPI backend:  
+uvicorn api:app --reload
+4. Run the Streamlit frontend:  
+streamlit run app.py
+
+---
+
+### How to run locally?
+
+1. Clone the repo:  
 
 ---
 
