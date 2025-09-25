@@ -1,17 +1,13 @@
 # 🏥 Insurance Prediction Model  
-
-A **Machine Learning project** built with **Linear Regression** to predict **insurance charges** based on user attributes such as age, BMI, smoking status, region, and other factors.  
 ## 🚀 Live Demo
 
 You can try out the **Insurance Premium Prediction** app live and even edit the code or explore it interactively.
 
 - **Live Demo:**  
   [![Open Live Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge&logo=streamlit)](https://insurance-prediction-model-y4xggsjhsnqsj2jlddmxjb.streamlit.app/)
----
-**Open browser to:**
-- API docs: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
-- Streamlit app: [http://localhost:8501](http://localhost:8501)
 
+---
+A **Machine Learning project** built with **Linear Regression** to predict **insurance charges** based on user attributes such as age, BMI, smoking status, region, and other factors.  
 ---
 ## 📊 Exploratory Data Analysis (EDA)
 - Thorough **EDA performed** to understand relationships in the dataset  
