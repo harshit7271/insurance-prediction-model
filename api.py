@@ -15,7 +15,7 @@ MODEL_VERSION = '1.0.0'
 
 app = FastAPI()
 
-# Define Pydantic model for input validation
+# Pydantic model validate users input
 class UserInput(BaseModel):
     age: float = Field(...)
     is_female: int = Field(..., description="1 for female, 0 for male")
@@ -89,6 +89,7 @@ def predict_premium(data: UserInput):
         return response
     except Exception as e:
         return JSONResponse(status_code=500, content={"status": "error", "message": str(e)})
+
 
 
 
