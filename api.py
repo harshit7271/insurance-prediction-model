@@ -54,6 +54,14 @@ def health_check():
     }
     
 # Input endpoint
+def risk_category(premium):
+    if premium < 3000:
+        return "Low"
+    elif premium < 6000:
+        return "Medium"
+    else:
+        return "High"
+
 @app.post("/predict")
 def predict_premium(data: UserInput):
     input_df = pd.DataFrame([{
@@ -68,15 +76,20 @@ def predict_premium(data: UserInput):
     to_scale = input_df[['age', 'bmi', 'children']]
     scaled = scaler.transform(to_scale)
     input_df[['age', 'bmi', 'children']] = scaled
-
     try:
         prediction = model.predict(input_df)[0]
+        risk = risk_category(prediction)
+        discount_eligibility = "Eligible" if data.is_smoker == 0 and data.bmi_category_Obese == 0 else "Not eligible"
+        avg_premium_for_demo = 4000  # Hypothetical average
+        comparison = "Above average" if prediction > avg_premium_for_demo else "Below average"
+
         response = {
             "predicted_premium": float(prediction),
-            "model_version": MODEL_VERSION,
+            "risk_category": risk,
+            "discount_eligibility": discount_eligibility,
+            "comparison_to_average": comparison,
             "input_features": data.dict(),
-            "explanation": "The premium is estimated based on age, BMI, smoking status, gender, region, and BMI category. Higher age, smoking, and BMI generally increase premiums.",
-            "timestamp": datetime.utcnow().isoformat() + 'Z',
+            "model_version": MODEL_VERSION,
             "model_name": "Linear Regression",
             "status": "success"
         }
