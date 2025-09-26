@@ -1,133 +1,139 @@
 import streamlit as st
 import requests
+from datetime import datetime
 
-# Custom CSS for styling
-custom_css = """
-<style>
-    body {
-        background: #f0f2f6;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    .app-header {
-        background-color: #4a90e2;
-        padding: 20px;
-        border-radius: 10px;
-        text-align: center;
-        color: white;
-        font-weight: 700;
-        font-size: 32px;
-        margin-bottom: 20px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    .app-footer {
-        padding: 10px;
-        text-align: center;
-        font-size: 12px;
-        color: #888;
-        margin-top: 40px;
-    }
-    .prediction-box {
-        background-color: white;
-        padding: 25px;
-        margin-top: 20px;
-        border-radius: 15px;
-        box-shadow: 0 6px 20px rgba(74, 144, 226, 0.3);
-        text-align: center;
-    }
-    .input-label {
-        font-weight: 600;
-        margin-top: 15px;
-        color: #333;
-    }
-    .submit-button {
-        background-color: #4a90e2;
-        border: none;
-        color: white;
-        padding: 15px 30px;
-        font-size: 18px;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        margin-top: 25px;
-        width: 100%;
-    }
-    .submit-button:hover {
-        background-color: #357ABD;
-    }
-    .star-rating {
-        color: #FFD700;
-        font-size: 28px;
-        cursor: pointer;
-    }
-    .sidebar-text {
-        font-size: 14px;
-        color: #555;
-        line-height: 1.4;
-    }
-</style>
-"""
+# Custom CSS styling
+def local_css():
+    st.markdown(
+        """
+        <style>
+        .main-container {
+            background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 700px;
+            margin: auto;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        h1 {
+            text-align: center;
+            color: #003366;
+            font-weight: bold;
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+        .subtitle {
+            text-align: center;
+            color: #004080;
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+        label {
+            font-weight: 600;
+            color: #002244;
+            margin-top: 1rem;
+            display: block;
+        }
+        .stButton > button {
+            background-color: #0077cc;
+            color: white;
+            border-radius: 8px;
+            height: 3rem;
+            font-size: 1.1rem;
+            border: none;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            margin-top: 1.5rem;
+        }
+        .stButton > button:hover {
+            background-color: #005fa3;
+            cursor: pointer;
+        }
+        .result {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            font-size: 1.2rem;
+            color: #003366;
+            line-height: 1.5;
+        }
+        .key-label {
+            font-weight: 700;
+            color: #004080;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
-st.markdown(custom_css, unsafe_allow_html=True)
-st.markdown('<div class="app-header">Insurance Premium Predictor</div>', unsafe_allow_html=True)
 
-st.sidebar.title("About This App")
-user_name = st.sidebar.text_input("Enter your name:")
-st.sidebar.markdown(
-    f"""
-    Hello, **{user_name}!**  
-    This app predicts your insurance premium based on several factors.
-    """
-)
-st.sidebar.markdown("---")
-st.sidebar.markdown("### Rate this app:")
-rating = st.sidebar.select_slider("", options=[1, 2, 3, 4, 5], value=5, format_func=lambda x: "★" * x)
-st.sidebar.markdown(f"<p class='star-rating'>{'★' * rating}{'☆' * (5 - rating)}</p>", unsafe_allow_html=True)
-st.sidebar.markdown("Thank you for your feedback!")
+local_css()
 
-# Building interractive interface for the API 
-def predict_premium(input_data):
-    url = "http://127.0.0.1:8000/predict"
-    response = requests.post(url, json=input_data)
-    if response.status_code == 200:
-        return response.json().get("predicted_premium")
+# Sidebar 
+st.sidebar.title("User Feedback")
+user_name = st.sidebar.text_input("Name")
+rating = st.sidebar.slider("Rate this app", 0, 5, 3)
+st.sidebar.success(f"Hey {user_name}, you have rated our app {rating}")
+comments = st.sidebar.text_area("Additional comments")
+
+if st.sidebar.button("Submit Feedback"):
+    if user_name.strip() == "" or comments.strip() == "":
+        st.sidebar.error("Please provide your name and comments to submit feedback.")
     else:
-        st.error("Failed to get prediction from API.")
-        return None
+        st.sidebar.success(f"Thanks for your feedback, {user_name}!")
 
-# frontend 
-with st.form("input_form"):
-    st.subheader("Enter Your Details")
-    age = st.number_input("Age", min_value=0, max_value=120, value=30)
-    is_female = st.radio("Gender", options=[0, 1], format_func=lambda x: "Male" if x == 0 else "Female")
-    bmi = st.number_input("BMI (Body Mass Index)", min_value=0.0, max_value=100.0, value=22.0, step=0.1)
-    children = st.number_input("Number of Children", min_value=0, max_value=20, value=0)
-    is_smoker = st.checkbox("Do you smoke?")
-    region_southeast = st.checkbox("Living in Southeast region?")
-    bmi_category_Obese = st.checkbox("Is your BMI category 'Obese'?")
+# Main container for prediction
+st.markdown('<div class="main-container">', unsafe_allow_html=True)
 
-    submit_button = st.form_submit_button("Predict Premium")
+st.markdown("<h1>Insurance Premium Predictor</h1>", unsafe_allow_html=True)
+st.markdown('<p class="subtitle">Enter your details below and get your premium estimate</p>', unsafe_allow_html=True)
 
-if submit_button:
-    # Convert boolean checkboxes to int (0/1)
-    input_json = {
-        "age": age,
-        "is_female": is_female,
-        "bmi": bmi,
-        "children": children,
-        "is_smoker": int(is_smoker),
-        "region_southeast": int(region_southeast),
-        "bmi_category_Obese": int(bmi_category_Obese),
-    }
+with st.form("prediction_form"):
+    age = st.number_input("Age", min_value=0, max_value=120)
+    is_female = st.selectbox("Gender", options=[0, 1], format_func=lambda x: "Female" if x == 1 else "Male")
+    bmi = st.number_input("BMI", min_value=10.0, max_value=50.0)
+    children = st.number_input("Number of children", min_value=0, max_value=10)
+    is_smoker = st.selectbox("Smoker", options=[0, 1], format_func=lambda x: "Yes" if x == 1 else "No")
+    region_southeast = st.selectbox("Region Southeast", options=[0, 1], format_func=lambda x: "Yes" if x == 1 else "No")
+    bmi_category_Obese = st.selectbox("BMI Category Obese", options=[0, 1], format_func=lambda x: "Yes" if x == 1 else "No")
 
-    with st.spinner("Calculating your insurance premium..."):
-        premium = predict_premium(input_json)
+    submitted = st.form_submit_button("Predict Premium")
 
-    if premium is not None:
-        st.markdown(f'''
-            <div class="prediction-box">
-                <h3>Your Estimated Insurance Premium:</h3>
-                <p style="font-size: 28px; color: #4a90e2; font-weight: bold;">${premium:,.2f}</p>
-            </div>
-        ''', unsafe_allow_html=True)
+if submitted:
+    if age == 0 or bmi == 0.0:
+        st.error("Please enter valid Age and BMI values.")
+    else:
+        payload = {
+            "age": age,
+            "is_female": is_female,
+            "bmi": bmi,
+            "children": children,
+            "is_smoker": is_smoker,
+            "region_southeast": region_southeast,
+            "bmi_category_Obese": bmi_category_Obese
+        }
+        try:
+            response = requests.post("http://localhost:8000/predict", json=payload)
+            if response.status_code == 200:
+                result = response.json()
+                st.markdown('<div class="result">', unsafe_allow_html=True)
+                st.markdown(f'<p><span class="key-label">Predicted Premium:</span> ${result["predicted_premium"]:.2f}</p>', unsafe_allow_html=True)
+                st.markdown(f'<p><span class="key-label">Risk Category:</span> {result.get("risk_category", "N/A")}</p>', unsafe_allow_html=True)
+                st.markdown(f'<p><span class="key-label">Discount Eligibility:</span> {result.get("discount_eligibility", "N/A")}</p>', unsafe_allow_html=True)
+                st.markdown(f'<p><span class="key-label">Comparison to Average:</span> {result.get("comparison_to_average", "N/A")}</p>', unsafe_allow_html=True)
+                st.markdown(f'<p><span class="key-label">Model Version:</span> {result.get("model_version", "N/A")}</p>', unsafe_allow_html=True)
+                timestamp = result.get('timestamp', datetime.utcnow().isoformat() + 'Z')
+                st.markdown(f'<p><span class="key-label">Prediction Time (UTC):</span> {timestamp}</p>', unsafe_allow_html=True)
+                st.markdown('</div>', unsafe_allow_html=True)
+            else:
+                st.error(f"API error: {response.status_code} - {response.text}")
+        except Exception as e:
+            st.error(f"Error connecting to API: {str(e)}")
 
-st.markdown('<div class="app-footer">© 2025 Insurance Prediction App | Built with Streamlit & FastAPI</div>', unsafe_allow_html=True)
+st.markdown('</div>', unsafe_allow_html=True)
+
+
