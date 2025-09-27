@@ -3,8 +3,11 @@
 
 You can try out the **Insurance Premium Prediction** app live and even edit the code or explore it interactively.
 
-- **Live Demo:**  
+- **Streamlit Live Demo:**  
   [![Open Live Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge&logo=streamlit)](https://insurance-prediction-model-y4xggsjhsnqsj2jlddmxjb.streamlit.app/)
+---
+-**FastAPI Live Demo**
+[🚀 Open Insurance Prediction Model](https://insurance-prediction-model-latest.onrender.com)
 
 ---
 A **Machine Learning project** built with **Linear Regression** to predict **insurance charges** based on user attributes such as age, BMI, smoking status, region, and other factors.  
