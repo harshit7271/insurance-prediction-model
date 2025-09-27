@@ -99,8 +99,7 @@ jupyter notebook insurance-prediction-model.ipynb
 
 ## 📌 Future Improvements
 - Test advanced ML models like Random Forest, XGBoost, Gradient Boosting  
-- Hyperparameter tuning for better performance  
-- Build UI for deployment (Streamlit / FastAPI app)  
+- Hyperparameter tuning for better performance   
 - Add cross-validation and feature importance analysis  
 
 ---
