@@ -117,7 +117,7 @@ if submitted:
             "bmi_category_Obese": bmi_category_Obese
         }
         try:
-            response = requests.post("http://localhost:8000/predict", json=payload)
+            response = requests.post("https://insurance-prediction-model-4.onrender.com/predict", json=payload)
             if response.status_code == 200:
                 result = response.json()
                 st.markdown('<div class="result">', unsafe_allow_html=True)
@@ -135,5 +135,6 @@ if submitted:
             st.error(f"Error connecting to API: {str(e)}")
 
 st.markdown('</div>', unsafe_allow_html=True)
+
 
 
