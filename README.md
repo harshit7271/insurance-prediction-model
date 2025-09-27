@@ -1,5 +1,20 @@
 # 🏥 Insurance Prediction Model 
 ---
+## 🚀 Live Demos - Try It Now!
+
+Experience the power of the **Insurance Prediction Model** with just a click! ⚡️
+
+### 🔹 FastAPI Backend (API Documentation & Testing)  
+Dive into the API with the interactive Swagger UI. Explore endpoints, send requests, and see responses instantly.  
+[![Open FastAPI Docs](https://img.shields.io/badge/🔗-FastAPI%20Docs-brightgreen?style=for-the-badge&logo=fastapi)](https://insurance-prediction-model-4.onrender.com/docs)  
+
+---
+
+### 🔹 Streamlit Frontend (User-Friendly Interface)  
+Get real-time insurance predictions with our sleek and intuitive Streamlit web app. No setup, just explore!  
+[![Open Streamlit App](https://img.shields.io/badge/🔗-Streamlit%20App-brightgreen?style=for-the-badge&logo=streamlit)](https://insurance-prediction-model-nh7lqb9gfyzveikkiytb4s.streamlit.app/)  
+
+---
 A **Machine Learning project** built with **Linear Regression** to predict **insurance charges** based on user attributes such as age, BMI, smoking status, region, and other factors.  
 ---
 ## 📊 Exploratory Data Analysis (EDA)
