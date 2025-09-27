@@ -5,7 +5,7 @@ You can try out the **Insurance Premium Prediction** app live and even edit the 
 
 - **Streamlit Live Demo:**  
   [![Open Live Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge&logo=streamlit)](https://insurance-prediction-model-y4xggsjhsnqsj2jlddmxjb.streamlit.app/)
----
+
 -**FastAPI Live Demo**
 [🚀 Open Insurance Prediction Model](https://insurance-prediction-model-latest.onrender.com)
 
